@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "GBmobile",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
