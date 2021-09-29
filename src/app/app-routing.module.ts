@@ -11,6 +11,14 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'leitor',
+    loadChildren: () => import('./leitor/leitor.module').then( m => m.LeitorPageModule)
+  },
+  {
+    path: 'bibliotecario',
+    loadChildren: () => import('./bibliotecario/bibliotecario.module').then( m => m.BibliotecarioPageModule)
+  },
 ];
 
 @NgModule({

@@ -1,20 +1,21 @@
-<ion-header [translucent]="true">
+<ion-header >
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-toolbar style="text-align: center;">
+      <h1>Login da Biblioteca</h1>
+    </ion-toolbar>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content >
+  <ion-card>
+    <ion-item>
+      <ion-input type="email" placeholder="Email" [(ngModel)]="login" name="email"></ion-input>
+    </ion-item>
+    <ion-item>
+     <ion-input type="password" placeholder="senha" [(ngModel)]="senha" name="senha"></ion-input>
+    </ion-item>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+    <ion-button expand="block" (click)="logar()">Entrar</ion-button>
+
+  </ion-card>
 </ion-content>
