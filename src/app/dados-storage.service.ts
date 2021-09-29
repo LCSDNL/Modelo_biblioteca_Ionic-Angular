@@ -22,17 +22,38 @@ export class DadosStorageService {
     this.listaUsuario.push(new Usuario(1,'Daniel','bibliotecario@email.com','1234567',1));
 
     //INICIALIZACAO DOS LIVROS
-    this.listaLivros.push(new Livro(0,'Como falar sobre livros que você não leu'));
-    this.listaLivros.push(new Livro(1,'A arte Zen do peido'));
-    this.listaLivros.push(new Livro(2,'Como começar seu próprio país'));
-    this.listaLivros.push(new Livro(3,'Caixões: Faça você mesmo'));
-    this.listaLivros.push(new Livro(4,'A síndrome da princesa com cara de bunda'));
+    this.listaLivros.push(new Livro(1,'Como falar sobre livros que você não leu','uns cara; ai e ali','terror',2000));
+    this.listaLivros.push(new Livro(2,'Como falar sobre livros que você não leu','uns cara; ai e ali','comédia',2000));
 
     // SALVAR NO STORAGE
     this.storage.set('users', this.listaUsuario);
     this.storage.set('livros', this.listaLivros);
 
   }
+
+  public getLivros(){
+    return this.storage.get('livros');
+  }
+  public attList(livros: Livro[]){
+    this.storage.set('livros', livros);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /////////////////    ALERTAS /////////////////////////
@@ -102,9 +123,5 @@ async alertSenhaInvalida() {
       }
     }return this.alertEmailInvalido();
 }
-
-
-
-
 }
 

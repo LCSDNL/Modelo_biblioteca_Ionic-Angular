@@ -1,9 +1,32 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>bibliotecario</ion-title>
+    <ion-title><h1>bibliotecario</h1></ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="livrosList">
+  <ion-list>
+
+      <ion-card *ngFor="let item of livrosList; let i = index">
+        <ion-item>
+          <h2>{{item.nome}}</h2>
+          <h6>{{item.tipo}}</h6>
+        </ion-item>
+        <ion-item>
+          <h4>{{item.autor}}</h4>
+          <h4 slot="end">{{item.ano}}</h4>
+        </ion-item>
+        <ion-item>
+          <ion-button slot="start" color="danger" (click)="apagar(i)">Deletar</ion-button>
+          <ion-button slot="end">EDITAR</ion-button>
+        </ion-item>
+      </ion-card>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
 </ion-content>

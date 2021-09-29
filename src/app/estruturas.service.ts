@@ -28,10 +28,16 @@ export class Usuario{
 export class Livro{
   id: number;
   nome: string;
+  autor: string;
+  tipo: string;
+  ano: number;
   reservado: number;
-  constructor(id: number, nome: string){
+  constructor(id: number, nome: string, autor: string, tipo: string, ano: number){
     this.id=id;
     this.nome=nome;
+    this.autor=autor;
+    this.tipo=tipo;
+    this.ano=ano;
     this.reservado=0;
   }
 }
