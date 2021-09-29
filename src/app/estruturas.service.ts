@@ -31,7 +31,7 @@ export class Livro{
   autor: string;
   tipo: string;
   ano: number;
-  reservado: number;
+  reservado: number; //0=disponvel 1=reservado 2=locado
   constructor(id: number, nome: string, autor: string, tipo: string, ano: number){
     this.id=id;
     this.nome=nome;

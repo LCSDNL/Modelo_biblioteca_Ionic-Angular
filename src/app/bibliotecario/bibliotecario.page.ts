@@ -20,10 +20,13 @@ export class BibliotecarioPage implements OnInit {
 
   }
 
-  public editar(){}
+  public editar(index){
+    this.dados.ponteiroEditLivro(index);
+    this.router.navigate(['/editlivro']);
+  }
 
-  public apagar(ind){
-    this.livrosList.splice(ind,1);
+  public apagar(index){
+    this.livrosList.splice(index,1);
     this.dados.attList(this.livrosList);
   }
 

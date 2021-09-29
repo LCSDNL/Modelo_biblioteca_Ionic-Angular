@@ -1,8 +1,10 @@
+/* eslint-disable max-len */
 import { Storage } from '@ionic/storage-angular';
 import { Usuario, Livro } from './estruturas.service';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { errorMonitor } from 'events';
 
 
 @Injectable({
@@ -11,9 +13,10 @@ import { AlertController } from '@ionic/angular';
 export class DadosStorageService {
 
   listaUsuario: Usuario[]=[];
-  listaLivros: Livro[]=[];
   logado: Usuario;
-
+  listaLivros: Livro[]=[];
+  livroEdita: Livro;
+  livroEditaIndex: any;
 
   constructor(private storage: Storage,private router: Router, private alertController: AlertController) {
     this.storage.create();
@@ -37,7 +40,19 @@ export class DadosStorageService {
   public attList(livros: Livro[]){
     this.storage.set('livros', livros);
   }
-
+  public ponteiroEditLivro(index){
+    this.livroEditaIndex= index;
+    this.livroEdita= this.listaLivros[index];
+  }
+  public retornoEditLivro(){
+    return this.livroEdita;
+  }
+   public async salvaLivroEdit(livro: Livro){
+    this.listaLivros[this.livroEditaIndex]=livro;
+    await this.storage.set('livros', this.listaLivros)
+    .then(()=>{this.editadoSucc();})
+    .catch(()=>console.log(errorMonitor));
+  }
 
 
 
@@ -98,6 +113,21 @@ async alertSenhaInvalida() {
 
   const { role } = await alert.onDidDismiss();
   console.log('onDidDismiss resolved with role', role);
+}
+
+async editadoSucc(){
+  const alert = await this.alertController.create({
+    cssClass: 'my-custom-class',
+    header: 'Tudo certo!',
+    subHeader: '',
+    message: 'Livro editado com sucesso!',
+    buttons: ['OK']
+  });
+
+  await alert.present();
+
+  const { role } = await alert.onDidDismiss();
+  this.router.navigate(['/bibliotecario']);;
 }
 
   /////////////////////LOGICA DO LOGIN////////////////////////

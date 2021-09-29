@@ -19,6 +19,10 @@ const routes: Routes = [
     path: 'bibliotecario',
     loadChildren: () => import('./bibliotecario/bibliotecario.module').then( m => m.BibliotecarioPageModule)
   },
+  {
+    path: 'editlivro',
+    loadChildren: () => import('./editlivro/editlivro.module').then( m => m.EditlivroPageModule)
+  },
 ];
 
 @NgModule({
