@@ -8,20 +8,30 @@
   <ion-list *ngIf="livrosList">
 
       <ion-card *ngFor="let item of livrosList; let i = index">
+
         <ion-item>
-          <h2>{{item.nome}}</h2>
-          <h6>{{item.tipo}}</h6>
+          <ion-label>
+            <h1>{{item.nome}}</h1>
+          </ion-label>
         </ion-item>
+
         <ion-item>
-          <h4>{{item.autor}}</h4>
-          <h4 slot="end">{{item.ano}}</h4>
-          <h4>{{item.reservado}}</h4>
+          <ion-label slot="end" style="text-align: end;">
+            {{item.autor}}<br>{{item.ano}}
+          </ion-label>
         </ion-item>
+
+        <ion-item>
+          <h6>Tipo:&nbsp;</h6> <h4>{{item.tipo}}</h4>
+        </ion-item>
+
         <ion-item>
           <ion-button slot="start" color="danger" (click)="apagar(i)">Deletar</ion-button>
-          <ion-button slot=""(click)="editar(i)">EDITAR</ion-button>
+          <ion-button slot=""(click)="editar(i)">Editar</ion-button>
         </ion-item>
+
       </ion-card>
+
   </ion-list>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">

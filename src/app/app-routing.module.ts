@@ -26,6 +26,10 @@ const routes: Routes = [
     path: 'addlivro',
     loadChildren: () => import('./addlivro/addlivro.module').then( m => m.AddlivroPageModule)
   },
+  {
+    path: 'infolivro',
+    loadChildren: () => import('./infolivro/infolivro.module').then( m => m.InfolivroPageModule)
+  },
 
 ];
 

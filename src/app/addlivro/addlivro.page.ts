@@ -21,10 +21,9 @@ export class AddlivroPage implements OnInit {
   }
 
   public salvar(){
-    if(this.dados.confirmaCampos(this.livro)){this.dados.addLivro(this.livro);}
+    if(this.dados.confirmaCampos(this.livro)){
+        this.dados.addLivro(this.livro);
+      }
   }
-
-
-
 
 }
