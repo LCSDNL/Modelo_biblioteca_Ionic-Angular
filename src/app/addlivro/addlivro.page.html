@@ -1,9 +1,40 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>addlivro</ion-title>
+    <ion-back-button slot="start"></ion-back-button>
+    <ion-title><h1>Adicionar Livro</h1></ion-title>
+    <ion-button slot="end" (click)="salvar()">Salvar</ion-button>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content *ngIf="livro">
+  <ion-card>
+    <ion-item>
+      <ion-label>Código:</ion-label>
+      <ion-input type="number" placeholder='' [(ngModel)]="livro.id" name="id"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Nome:</ion-label>
+      <ion-input type="text" placeholder='' [(ngModel)]="livro.nome" name="nome"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Autor:</ion-label>
+      <ion-input type="text" placeholder='' [(ngModel)]="livro.autor" name="autor"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Ano:</ion-label>
+      <ion-input type="number" placeholder='' [(ngModel)]="livro.ano" name="ano"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Tipo:</ion-label>
+      <ion-input type="text" placeholder='' [(ngModel)]="livro.tipo" name="tipo"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Status:</ion-label>
+        <ion-select interface="popover" [(ngModel)]="livro.reservado" name="status">
+          <ion-select-option value=0>Disponivel</ion-select-option>
+          <ion-select-option value=1>Reservado</ion-select-option>
+          <ion-select-option value=2>Locado</ion-select-option>
+        </ion-select>
+    </ion-item>
+</ion-card>
 </ion-content>

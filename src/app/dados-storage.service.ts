@@ -42,7 +42,7 @@ export class DadosStorageService {
   public retornoEditLivro(){
     return this.livroEdita;
   }
-   public async salvaLivroEdit(livro: Livro){
+  public async salvaLivroEdit(livro: Livro){
     this.listaLivros[this.livroIndex]=livro;
 
     this.attList().then(()=>{this.editadoSucc();})
@@ -51,6 +51,12 @@ export class DadosStorageService {
   public livrosAtt(livros: Livro[]){
     this.listaLivros=livros;
     this.attList().then(()=>{console.log('lista de livros atualizada');});
+  }
+  public addLivro(livro: Livro){
+    this.listaLivros.push(livro);
+
+    this.attList().then(()=>{this.editadoSucc();})
+    .catch(()=>console.log(errorMonitor));
   }
 
 

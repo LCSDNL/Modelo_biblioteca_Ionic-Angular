@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { DadosStorageService } from './../dados-storage.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { Livro } from '../estruturas.service';
 
 @Component({
   selector: 'app-addlivro',
@@ -6,10 +8,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./addlivro.page.scss'],
 })
 export class AddlivroPage implements OnInit {
+  @Input() livro: Livro;
+  constructor(private dados: DadosStorageService) { }
 
-  constructor() { }
-
-  ngOnInit() {
+  async ngOnInit() {
+    this.livro= new Livro(undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined);
   }
 
+  public salvar(){
+    this.dados.addLivro(this.livro);
+  }
 }
