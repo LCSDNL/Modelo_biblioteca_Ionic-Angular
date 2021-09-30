@@ -1,6 +1,6 @@
 import { Livro } from './../estruturas.service';
 import { DadosStorageService } from './../dados-storage.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-editlivro',
@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./editlivro.page.scss'],
 })
 export class EditlivroPage implements OnInit {
-  livro: Livro;
+  @Input() livro: Livro;
   constructor(private dados: DadosStorageService) { }
 
   async ngOnInit() {

@@ -22,7 +22,11 @@ const routes: Routes = [
   {
     path: 'editlivro',
     loadChildren: () => import('./editlivro/editlivro.module').then( m => m.EditlivroPageModule)
+  },  {
+    path: 'addlivro',
+    loadChildren: () => import('./addlivro/addlivro.module').then( m => m.AddlivroPageModule)
   },
+
 ];
 
 @NgModule({

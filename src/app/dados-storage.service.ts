@@ -16,7 +16,7 @@ export class DadosStorageService {
   logado: Usuario;
   listaLivros: Livro[]=[];
   livroEdita: Livro;
-  livroEditaIndex: any;
+  livroIndex: any;
 
   constructor(private storage: Storage,private router: Router, private alertController: AlertController) {
     this.storage.create();
@@ -25,8 +25,8 @@ export class DadosStorageService {
     this.listaUsuario.push(new Usuario(1,'Daniel','bibliotecario@email.com','1234567',1));
 
     //INICIALIZACAO DOS LIVROS
-    this.listaLivros.push(new Livro(1,'Como falar sobre livros que você não leu','uns cara; ai e ali','terror',2000));
-    this.listaLivros.push(new Livro(2,'Como falar sobre livros que você não leu','uns cara; ai e ali','comédia',2000));
+    this.listaLivros.push(new Livro(1,'Como falar sobre livros que você não leu','uns cara; ai e ali','terror',2000, 1));
+    this.listaLivros.push(new Livro(2,'Como falar sobre livros que você não leu','uns cara; ai e ali','comédia',2000, 0));
 
     // SALVAR NO STORAGE
     this.storage.set('users', this.listaUsuario);
@@ -34,28 +34,24 @@ export class DadosStorageService {
 
   }
 
-  public getLivros(){
-    return this.storage.get('livros');
-  }
-  public attList(livros: Livro[]){
-    this.storage.set('livros', livros);
-  }
+
   public ponteiroEditLivro(index){
-    this.livroEditaIndex= index;
+    this.livroIndex= index;
     this.livroEdita= this.listaLivros[index];
   }
   public retornoEditLivro(){
     return this.livroEdita;
   }
    public async salvaLivroEdit(livro: Livro){
-    this.listaLivros[this.livroEditaIndex]=livro;
-    await this.storage.set('livros', this.listaLivros)
-    .then(()=>{this.editadoSucc();})
+    this.listaLivros[this.livroIndex]=livro;
+
+    this.attList().then(()=>{this.editadoSucc();})
     .catch(()=>console.log(errorMonitor));
   }
-
-
-
+  public livrosAtt(livros: Livro[]){
+    this.listaLivros=livros;
+    this.attList().then(()=>{console.log('lista de livros atualizada');});
+  }
 
 
 
@@ -114,7 +110,6 @@ async alertSenhaInvalida() {
   const { role } = await alert.onDidDismiss();
   console.log('onDidDismiss resolved with role', role);
 }
-
 async editadoSucc(){
   const alert = await this.alertController.create({
     cssClass: 'my-custom-class',
@@ -127,6 +122,7 @@ async editadoSucc(){
   await alert.present();
 
   const { role } = await alert.onDidDismiss();
+  await this.getLivros();
   this.router.navigate(['/bibliotecario']);;
 }
 
@@ -138,6 +134,7 @@ async editadoSucc(){
       this.loginCheck(login, senha);
     }
 }
+/////////////////   PRIVATES   //////////////////
   private async loginCheck(login: string, senha: string){
     const lista: Usuario[] = await this.storage.get('users');
 
@@ -152,6 +149,12 @@ async editadoSucc(){
         }else{return this.alertSenhaInvalida();}
       }
     }return this.alertEmailInvalido();
-}
+  }
+  private async attList(){
+    await this.storage.set('livros', this.listaLivros);
+  }
+  private  async getLivros(){
+    this.listaLivros= await this.storage.get('livros');
+  }
 }
 

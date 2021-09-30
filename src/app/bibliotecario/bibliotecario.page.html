@@ -4,8 +4,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="livrosList">
-  <ion-list>
+<ion-content >
+  <ion-list *ngIf="livrosList">
 
       <ion-card *ngFor="let item of livrosList; let i = index">
         <ion-item>
@@ -15,6 +15,7 @@
         <ion-item>
           <h4>{{item.autor}}</h4>
           <h4 slot="end">{{item.ano}}</h4>
+          <h4>{{item.reservado}}</h4>
         </ion-item>
         <ion-item>
           <ion-button slot="start" color="danger" (click)="apagar(i)">Deletar</ion-button>
@@ -24,7 +25,7 @@
   </ion-list>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button>
+    <ion-fab-button (click)="addLivro()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
