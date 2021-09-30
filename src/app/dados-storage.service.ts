@@ -25,8 +25,8 @@ export class DadosStorageService {
     this.listaUsuario.push(new Usuario(1,'Daniel','bibliotecario@email.com','1234567',1));
 
     //INICIALIZACAO DOS LIVROS
-    this.listaLivros.push(new Livro(1,'Como falar sobre livros que você não leu','uns cara; ai e ali','terror',2000, 1));
-    this.listaLivros.push(new Livro(2,'Como falar sobre livros que você não leu','uns cara; ai e ali','comédia',2000, 0));
+    //this.listaLivros.push(new Livro(1,'Como falar sobre livros que você não leu','uns cara; ai e ali','terror',2000, 1));
+    //this.listaLivros.push(new Livro(2,'Como falar sobre livros que você não leu','uns cara; ai e ali','comédia',2000, 0));
 
     // SALVAR NO STORAGE
     this.storage.set('users', this.listaUsuario);
@@ -42,7 +42,7 @@ export class DadosStorageService {
   public retornoEditLivro(){
     return this.livroEdita;
   }
-  public async salvaLivroEdit(livro: Livro){
+  public salvaLivroEdit(livro: Livro){
     this.listaLivros[this.livroIndex]=livro;
 
     this.attList().then(()=>{this.editadoSucc();})
@@ -55,7 +55,7 @@ export class DadosStorageService {
   public addLivro(livro: Livro){
     this.listaLivros.push(livro);
 
-    this.attList().then(()=>{this.editadoSucc();})
+    this.attList().then(()=>{this.addSucc();})
     .catch(()=>console.log(errorMonitor));
   }
 
@@ -71,67 +71,6 @@ export class DadosStorageService {
 
 
 
-
-
-/////////////////    ALERTAS /////////////////////////
-async alertEmailVazio() {
-  const alert = await this.alertController.create({
-    cssClass: 'my-custom-class',
-    header: 'Atenção',
-    subHeader: '',
-    message: 'Email não informado',
-    buttons: ['OK']
-  });
-
-  await alert.present();
-
-  const { role } = await alert.onDidDismiss();
-  console.log('onDidDismiss resolved with role', role);
-}
-async alertEmailInvalido() {
-  const alert = await this.alertController.create({
-    cssClass: 'my-custom-class',
-    header: 'OPS...',
-    subHeader: '',
-    message: 'Email Invalido',
-    buttons: ['OK']
-  });
-
-  await alert.present();
-
-  const { role } = await alert.onDidDismiss();
-  console.log('onDidDismiss resolved with role', role);
-}
-async alertSenhaInvalida() {
-  const alert = await this.alertController.create({
-    cssClass: 'my-custom-class',
-    header: 'Atenção',
-    subHeader: '',
-    message: 'Senha incorreta',
-    buttons: ['OK']
-  });
-
-  await alert.present();
-
-  const { role } = await alert.onDidDismiss();
-  console.log('onDidDismiss resolved with role', role);
-}
-async editadoSucc(){
-  const alert = await this.alertController.create({
-    cssClass: 'my-custom-class',
-    header: 'Tudo certo!',
-    subHeader: '',
-    message: 'Livro editado com sucesso!',
-    buttons: ['OK']
-  });
-
-  await alert.present();
-
-  const { role } = await alert.onDidDismiss();
-  await this.getLivros();
-  this.router.navigate(['/bibliotecario']);;
-}
-
   /////////////////////LOGICA DO LOGIN////////////////////////
   public login(login: string, senha: string){
     if((login === undefined) ){
@@ -140,6 +79,8 @@ async editadoSucc(){
       this.loginCheck(login, senha);
     }
 }
+
+
 /////////////////   PRIVATES   //////////////////
   private async loginCheck(login: string, senha: string){
     const lista: Usuario[] = await this.storage.get('users');
@@ -162,5 +103,81 @@ async editadoSucc(){
   private  async getLivros(){
     this.listaLivros= await this.storage.get('livros');
   }
+
+
+  /////////////////    ALERTAS /////////////////////////
+  private  async alertEmailVazio() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Atenção',
+      subHeader: '',
+      message: 'Email não informado',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+  }
+  private  async alertEmailInvalido() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'OPS...',
+      subHeader: '',
+      message: 'Email Invalido',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+  }
+  private  async alertSenhaInvalida() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Atenção',
+      subHeader: '',
+      message: 'Senha incorreta',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+  }
+  private  async editadoSucc(){
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Tudo certo!',
+      subHeader: '',
+      message: 'Livro editado com sucesso!',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+    await this.getLivros();
+    this.router.navigate(['/bibliotecario']);;
+  }
+  private  async addSucc(){
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Tudo certo!',
+      subHeader: '',
+      message: 'Livro adicionado com sucesso!',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+    await this.getLivros();
+    this.router.navigate(['/bibliotecario']);;
+  }
+
 }
 
