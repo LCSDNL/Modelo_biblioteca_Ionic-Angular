@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class BibliotecarioPage implements OnInit {
 
   livrosList: Livro[]=[];
-  index: number;
+  private index: number;
 
   constructor( private dados: DadosStorageService, private router: Router, private alertController: AlertController) {}
 

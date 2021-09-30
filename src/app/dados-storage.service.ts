@@ -34,7 +34,14 @@ export class DadosStorageService {
 
   }
 
+//////////////TRATAMENTO DE CAMPOS DOS LIVROS/////////////////////////
+public confirmaCampos(livro: Livro){
+  if(livro.autor!==undefined && livro.nome!==undefined && livro.ano!==undefined && livro.id!==undefined && livro.tipo!==undefined && livro.reservado!==undefined){
+      return true;
+  }else{this.alertCampoVazio(); return false;}
+}
 
+  //////////////////LOGICAS DOS LIVROS//////////////////////////
   public ponteiroEditLivro(index){
     this.livroIndex= index;
     this.livroEdita= this.listaLivros[index];
@@ -59,18 +66,6 @@ export class DadosStorageService {
     .catch(()=>console.log(errorMonitor));
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
   /////////////////////LOGICA DO LOGIN////////////////////////
   public login(login: string, senha: string){
     if((login === undefined) ){
@@ -79,7 +74,6 @@ export class DadosStorageService {
       this.loginCheck(login, senha);
     }
 }
-
 
 /////////////////   PRIVATES   //////////////////
   private async loginCheck(login: string, senha: string){
@@ -103,7 +97,6 @@ export class DadosStorageService {
   private  async getLivros(){
     this.listaLivros= await this.storage.get('livros');
   }
-
 
   /////////////////    ALERTAS /////////////////////////
   private  async alertEmailVazio() {
@@ -177,6 +170,20 @@ export class DadosStorageService {
     const { role } = await alert.onDidDismiss();
     await this.getLivros();
     this.router.navigate(['/bibliotecario']);;
+  }
+  private  async alertCampoVazio() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Atenção',
+      subHeader: '',
+      message: 'Campos vazios',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
   }
 
 }
