@@ -3,7 +3,7 @@ import { Storage } from '@ionic/storage-angular';
 import { Usuario, Livro } from './estruturas.service';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { errorMonitor } from 'events';
 
 
@@ -18,7 +18,7 @@ export class DadosStorageService {
   livroEdita: Livro;
   livroIndex: any;
 
-  constructor(private storage: Storage,private router: Router, private alertController: AlertController) {
+  constructor(private storage: Storage,private router: Router, private alertController: AlertController, private toast: ToastController) {
     this.storage.create();
     //INICIALIZACAO DOS USUARIOS
     this.listaUsuario.push(new Usuario(0,'Lucas','leitor@email.com','123456',0));
@@ -27,6 +27,7 @@ export class DadosStorageService {
     //INICIALIZACAO DOS LIVROS
     this.listaLivros.push(new Livro(1,'Como falar sobre livros que você não leu','uns cara; ai e ali','terror',2000, 1));
     this.listaLivros.push(new Livro(2,'Como falar sobre livros que você não leu','uns cara; ai e ali','comédia',2000, 0));
+    this.listaLivros.push(new Livro(3,'Como falar sobre livros que você não leu','uns cara; ai e ali','comédia',2000, 2));
 
     // SALVAR NO STORAGE
     this.storage.set('users', this.listaUsuario);
@@ -65,6 +66,15 @@ public confirmaCampos(livro: Livro){
     this.attList().then(()=>{this.addSucc();})
     .catch(()=>console.log(errorMonitor));
   }
+  public reservaLivro(livro: Livro){
+    this.listaLivros[this.livroIndex]=livro;
+    if(this.reservaCheck()){
+      this.attList().then(()=>{ this.toastReservado();
+                                this.router.navigate(['/leitor']);
+                                this.logado.reserva=livro;  })
+      .catch(()=>console.log(errorMonitor));
+    }
+}
 
   /////////////////////LOGICA DO LOGIN////////////////////////
   public login(login: string, senha: string){
@@ -96,6 +106,15 @@ public confirmaCampos(livro: Livro){
   }
   private  async getLivros(){
     this.listaLivros= await this.storage.get('livros');
+  }
+  private reservaCheck(){
+    if(this.logado.reserva === null){
+      this.listaLivros[this.livroIndex].reservado=1;
+      return true;
+    }else{
+        this.alertReservado();
+        return false;
+    }
   }
 
   /////////////////    ALERTAS /////////////////////////
@@ -154,7 +173,7 @@ public confirmaCampos(livro: Livro){
 
     const { role } = await alert.onDidDismiss();
     await this.getLivros();
-    this.router.navigate(['/bibliotecario']);;
+    this.router.navigate(['/bibliotecario']);
   }
   private  async addSucc(){
     const alert = await this.alertController.create({
@@ -185,6 +204,29 @@ public confirmaCampos(livro: Livro){
     const { role } = await alert.onDidDismiss();
     console.log('onDidDismiss resolved with role', role);
   }
+  private async alertReservado(){
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Atenção',
+      subHeader: '',
+      message: 'Você ja possui um livro reservado!',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+    this.router.navigate(['/leitor']);
+    console.log('onDidDismiss resolved with role', role);
+  }
+
+
+  private async toastReservado() {
+    const toast = await this.toast.create({
+      message: 'Livro reservado com sucesso!',
+      duration: 2000
+    });
+    toast.present();
+  }
 
 }
-

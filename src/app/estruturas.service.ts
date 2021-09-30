@@ -21,7 +21,7 @@ export class Usuario{
     this.login=login;
     this.senha=senha;
     this.seguranca=seguranca;
-    this.reserva=undefined;
+    this.reserva=null;
   }
 }
 

@@ -34,5 +34,7 @@
       <ion-input readonly *ngIf="livro.reservado === 1">Reservado</ion-input>
       <ion-input readonly *ngIf="livro.reservado === 2">Emprestado</ion-input>
     </ion-item>
-</ion-card>
+  </ion-card>
+
+    <ion-button size="block" *ngIf="livro.reservado === 0" (click)="reservar()">Reservar</ion-button>
 </ion-content>
