@@ -12,7 +12,7 @@ import { Livro } from '../estruturas.service';
 export class LeitorPage implements OnInit {
 
   livrosList: Livro[]=[];
-  private index: number;
+
 
   constructor( private dados: DadosStorageService, private router: Router, private alertController: AlertController) {}
 
@@ -24,7 +24,12 @@ export class LeitorPage implements OnInit {
     this.livrosList= await this.dados.listaLivros;
   }
 
-  public exibeInfo(){
-    console.log('funfou!');
+  public exibeInfo(index){
+    this.dados.ponteiroEditLivro(index);
+    this.router.navigate(['/infolivro']);
+  }
+
+  public logout(){
+    this.router.navigate(['/']);
   }
 }

@@ -1,9 +1,38 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>infolivro</ion-title>
+    <ion-back-button slot="start"></ion-back-button>
+    <ion-title><h1>Informação do Livro</h1></ion-title>
+
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content *ngIf="livro">
+  <ion-card>
+    <ion-item>
+      <ion-label>Código:</ion-label>
+      <ion-input readonly type="number" placeholder='' [(ngModel)]="livro.id" name="id"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Nome:</ion-label>
+      <ion-input readonly type="text" placeholder='' [(ngModel)]="livro.nome" name="nome"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Autor:</ion-label>
+      <ion-input readonly type="text" placeholder='' [(ngModel)]="livro.autor" name="autor"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Ano:</ion-label>
+      <ion-input readonly type="number" placeholder='' [(ngModel)]="livro.ano" name="ano"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Tipo:</ion-label>
+      <ion-input readonly type="text" placeholder='' [(ngModel)]="livro.tipo" name="tipo"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Status:</ion-label>
+      <ion-input readonly *ngIf="livro.reservado === 0">Disponivel</ion-input>
+      <ion-input readonly *ngIf="livro.reservado === 1">Reservado</ion-input>
+      <ion-input readonly *ngIf="livro.reservado === 2">Emprestado</ion-input>
+    </ion-item>
+</ion-card>
 </ion-content>

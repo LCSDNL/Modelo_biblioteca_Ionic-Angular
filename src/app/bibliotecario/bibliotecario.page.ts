@@ -39,6 +39,10 @@ export class BibliotecarioPage implements OnInit {
     this.router.navigate(['/addlivro']);
   }
 
+  public logout(){
+    this.router.navigate(['/']);
+  }
+
 //////////////ALERTAS///////////
 private async presentAlertConfirm() {
   const alert = await this.alertController.create({

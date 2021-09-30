@@ -1,13 +1,14 @@
 <ion-header>
   <ion-toolbar>
     <ion-title><h1>Leitor</h1></ion-title>
+    <ion-button slot="end" (click)="logout()">Logout</ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content >
   <ion-list *ngIf="livrosList">
 
-      <ion-card *ngFor="let item of livrosList; let i = index" (click)="exibeInfo()">
+      <ion-card *ngFor="let item of livrosList; let i = index" (click)="exibeInfo(i)">
 
         <ion-item>
           <ion-label>
