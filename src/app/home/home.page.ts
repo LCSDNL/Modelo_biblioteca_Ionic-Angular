@@ -22,6 +22,11 @@ export class HomePage implements OnInit {
    await this.storage.create();
   }
 
+  ionViewWillEnter(){
+    this.login=undefined;
+    this.senha=undefined;
+  }
+
   public logar(){
     this.dados.login(this.login, this.senha);
   }
