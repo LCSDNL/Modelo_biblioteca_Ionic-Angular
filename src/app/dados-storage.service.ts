@@ -25,9 +25,9 @@ export class DadosStorageService {
     this.listaUsuario.push(new Usuario(1,'Daniel','bibliotecario@email.com','1234567',1));
 
     //INICIALIZACAO DOS LIVROS
-    this.listaLivros.push(new Livro(1,'Como falar sobre livros que você não leu','uns cara; ai e ali','terror',2000, 1));
-    this.listaLivros.push(new Livro(2,'Como falar sobre livros que você não leu','uns cara; ai e ali','comédia',2000, 0));
-    this.listaLivros.push(new Livro(3,'Como falar sobre livros que você não leu','uns cara; ai e ali','comédia',2000, 2));
+    this.listaLivros.push(new Livro(1,'Zombies & Cálculo','Colin Adams','Livro',2018, 1));
+    this.listaLivros.push(new Livro(2,'Codex Seraphinianus','Luigi Serafini, Umas ervas ai','Enciclopédia',1981, 0));
+    this.listaLivros.push(new Livro(3,'Tales Of Demons and Gods','Mad Snail','Novel',2021, 2));
 
     // SALVAR NO STORAGE
     this.storage.set('users', this.listaUsuario);
