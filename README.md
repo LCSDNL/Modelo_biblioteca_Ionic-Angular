@@ -1,5 +1,5 @@
 # Modelo biblioteca mobile (Ionic/Angular)
-  Modelo de um sistema de bibliotaca com perfil bibliotecario e leitor, construido utilzando frameworks Ionic/Angular
+  Modelo de um sistema de biblioteca com perfil bibliotecário e leitor, construido utilizando frameworks Ionic/Angular
 
 ### Instruções de execução
   A pasta `node_modules` é muito grande e possui um conteudo padrão, por esse motivo ela foi adicionada ao `gitgnore`, sendo assim necessario a ação a seguir.<br>
